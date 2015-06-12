@@ -1,0 +1,12 @@
+{
+  "name": "react-train-example",
+  "description": "example app for react training",
+  "dependencies": {
+    "browser-sync": "^2.7.7",
+    "browserify": "^10.2.4",
+    "gulp": "^3.9.0",
+    "react": "^0.13.3",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^1.1.0"
+  }
+}
