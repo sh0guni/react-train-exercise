@@ -17,7 +17,6 @@ var DepartureDatePicker = React.createClass({
         return (
             <div className="departureDatePicker">
                 <DatePicker
-                    key="example3"
                     placeholderText="Click to select a date"
                     dateFormat="DD-MM-YYYY"
                     selected={this.state.departureDate}
