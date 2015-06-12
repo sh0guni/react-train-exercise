@@ -1,6 +1,6 @@
 var React = require('react');
 var DatePicker = require('react-datepicker');
-var moment = require('moment');
+var moment = require('moment-timezone');
 
 var DepartureDatePicker = React.createClass({
     getInitialState: function () {
@@ -10,7 +10,7 @@ var DepartureDatePicker = React.createClass({
         this.setState({
             departureDate: date
         });
-        var formattedDate = moment(date).format("DD-MM-YYYY");
+        var formattedDate = moment(date).format("YYYY-MM-DD");
         this.props.handleDateChange(formattedDate);
     },
     render: function() {
