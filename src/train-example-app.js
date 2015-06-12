@@ -90,7 +90,7 @@ var TimeTableRows = React.createClass({
         return (
             <div className="timeTableRows">
                 Time table:
-                <table style={ttrStyle}>
+                <table textAlign='left'>
                     <thead>
                     <tr>
                         <th>Station</th>
@@ -140,10 +140,6 @@ var TrainSearchApp = React.createClass({
         )
     }
 });
-
-var ttrStyle = {
-    textAlign: 'left'
-};
 
 React.render(
     <TrainSearchApp />,
