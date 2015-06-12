@@ -6,7 +6,7 @@ var browserSync = require('browser-sync').create();
 
 var paths = {
     app_js: ['./src/train-example-app.js'],
-    js: ['./src/*.js']
+    js: ['./src/*']
 };
 
 gulp.task('js', function() {

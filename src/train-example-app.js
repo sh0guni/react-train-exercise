@@ -2,14 +2,14 @@ var exampleTrain = {"trainNumber":1,"departureDate":"2015-03-01","operatorUICCod
 
 var React = require('react');
 var Reflux = require('reflux');
+var DepartureDatePicker = require('./departure-datepicker.jsx');
 
 var Actions = Reflux.createActions({
     "trainSearch": {asyncResult: true}
 });
 
-
 Actions.trainSearch.listen(function (train) {
-    console.log('onTrainSearch: ' + train.trainNumber);
+    console.log('onTrainSearch: ' + train.trainNumber + ' ' + train.departureDate);
     this.completed(exampleTrain);
 });
 
@@ -25,11 +25,15 @@ var SearchBox = React.createClass({
     handleSubmit: function(e) {
         e.preventDefault();
         var trainNumber = React.findDOMNode(this.refs.trainNumber).value.trim();
-        var departureDate = React.findDOMNode(this.refs.departureDate).value.trim();
-        if (!trainNumber || !departureDate) {
+        if (!trainNumber || !this.state.departureDate) {
             return;
         }
-        Actions.trainSearch({trainNumber: trainNumber, departureDate: departureDate});
+        Actions.trainSearch({trainNumber: trainNumber, departureDate: this.state.departureDate});
+    },
+    handleDateChange: function(date) {
+        this.setState({
+            departureDate: date
+        });
     },
     render: function () {
         return (
@@ -38,7 +42,7 @@ var SearchBox = React.createClass({
                     Train number:<br/>
                     <input type="text" ref="trainNumber" /><br/>
                     Departure date:<br/>
-                    <input type="text" ref="departureDate" /><br/>
+                    <DepartureDatePicker handleDateChange={this.handleDateChange} />
                     <input type="submit" value="Search" /><br/>
                     <br/>
                 </form>
