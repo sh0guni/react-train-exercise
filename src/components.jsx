@@ -13,6 +13,7 @@ var SearchBox = React.createClass({
         if (!trainNumber || !this.state.departureDate) {
             return;
         }
+        Actions.trainSearch({trainNumber: trainNumber, departureDate: this.state.departureDate});
     },
     handleDateChange: function(date) {
         this.setState({

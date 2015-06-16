@@ -10,3 +10,15 @@ function fetchTrain(train, callback) {
         callback(newTrain);
     });
 }
+
+var Actions = Reflux.createActions({
+    "trainSearch": {asyncResult: true}
+});
+
+Actions.trainSearch.listen(function (train) {
+    fetchTrain(train, function(newTrain) {
+        Actions.trainSearch.completed(newTrain);
+    });
+});
+
+module.exports = Actions;
