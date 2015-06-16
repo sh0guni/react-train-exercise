@@ -4,7 +4,6 @@ var DepartureDatePicker = require('./departure-datepicker.jsx');
 var Actions = require('./actions');
 var trainStore = require('./store');
 var emptyTrain = require('./emptyTrain.json');
-var exampleTrain = require('./exampleTrain.json');
 
 var SearchBox = React.createClass({
     handleSubmit: function(e) {
@@ -89,15 +88,22 @@ var TimeTableRows = React.createClass({
 
 var ScheduleTable = React.createClass({
     getInitialState: function () {
-        return { train: exampleTrain }
+        return { train: emptyTrain }
+    },
+    onTrainUpdate: function(newTrain) {
+        this.setState({ train: newTrain });
+    },
+    componentDidMount: function() {
+        this.unsubscribe = trainStore.listen(this.onTrainUpdate);
+    },
+    componentWillUnmount: function() {
+        this.unsubscribe();
     },
     render: function() {
         return (
             <div className="ScheduleTable">
-                <div className="ScheduleTable">
-                    <TrainInfo data={this.state.train} />
-                    <TimeTableRows data={this.state.train.timeTableRows} />
-                </div>
+                <TrainInfo data={this.state.train} />
+                <TimeTableRows data={this.state.train.timeTableRows} />
             </div>
         )
     }
