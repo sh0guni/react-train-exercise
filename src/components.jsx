@@ -17,6 +17,46 @@ var TrainInfo = React.createClass({
     }
 });
 
+var TimeTableRow = React.createClass({
+    render: function () {
+        var scheduledTime = this.props.data.scheduledTime  ? moment(this.props.data.scheduledTime).tz("Europe/Helsinki").format() : '';
+        return (
+            <tr>
+                <td>{this.props.data.stationShortCode}</td>
+                <td>{this.props.data.type}</td>
+                <td>{scheduledTime}</td>
+            </tr>
+        )
+    }
+});
+
+var TimeTableRows = React.createClass({
+    render: function () {
+        var timeTableRows = this.props.data.map(function (ttr) {
+            return (
+                <TimeTableRow data={ttr} />
+            )
+        });
+        return (
+            <div className="timeTableRows">
+                Time table:
+                <table textAlign='left'>
+                    <thead>
+                    <tr>
+                        <th>Station</th>
+                        <th>Type</th>
+                        <th>Scheduled time</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {timeTableRows}
+                    </tbody>
+                </table>
+            </div>
+        )
+    }
+});
+
 var ScheduleTable = React.createClass({
     getInitialState: function () {
         return { train: exampleTrain }
@@ -24,7 +64,10 @@ var ScheduleTable = React.createClass({
     render: function() {
         return (
             <div className="ScheduleTable">
-                <TrainInfo data={this.state.train} />
+                <div className="ScheduleTable">
+                    <TrainInfo data={this.state.train} />
+                    <TimeTableRows data={this.state.train.timeTableRows} />
+                </div>
             </div>
         )
     }
