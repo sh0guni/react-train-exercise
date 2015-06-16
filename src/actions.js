@@ -1,7 +1,6 @@
 var Reflux = require('reflux');
 var request = require('superagent');
-
-var emptyTrain = { trainNumber: '', departureDate: '', timeTableRows: [{stationShortCode: '', type: '', scheduledTime: null}]};
+var emptyTrain = require('./emptyTrain.json');
 
 function fetchTrain(train, callback) {
     var url = 'http://rata.digitraffic.fi/api/v1/schedules/' + train.trainNumber + '?departure_date=' + train.departureDate;

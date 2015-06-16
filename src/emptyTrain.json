@@ -1,0 +1,11 @@
+{
+  "trainNumber": "",
+  "departureDate": "",
+  "timeTableRows": [
+    {
+      "stationShortCode": "",
+      "type": "",
+      "scheduledTime": null
+    }
+  ]
+}
