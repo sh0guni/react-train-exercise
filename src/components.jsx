@@ -6,6 +6,35 @@ var trainStore = require('./store');
 var emptyTrain = require('./emptyTrain.json');
 var exampleTrain = require('./exampleTrain.json');
 
+var SearchBox = React.createClass({
+    handleSubmit: function(e) {
+        e.preventDefault();
+        var trainNumber = React.findDOMNode(this.refs.trainNumber).value.trim();
+        if (!trainNumber || !this.state.departureDate) {
+            return;
+        }
+    },
+    handleDateChange: function(date) {
+        this.setState({
+            departureDate: date
+        });
+    },
+    render: function () {
+        return (
+            <div className="searchBox">
+                <form className="searchForm" onSubmit={this.handleSubmit}>
+                    Train number:<br/>
+                    <input type="text" ref="trainNumber" /><br/>
+                    Departure date:<br/>
+                    <DepartureDatePicker handleDateChange={this.handleDateChange} />
+                    <input type="submit" value="Search" /><br/>
+                    <br/>
+                </form>
+            </div>
+        )
+    }
+});
+
 var TrainInfo = React.createClass({
     render: function () {
         return (
@@ -77,6 +106,7 @@ var TrainSearch = React.createClass({
     render: function () {
         return (
             <div className="TrainSearchApp">
+                <SearchBox />
                 <ScheduleTable />
             </div>
         )
