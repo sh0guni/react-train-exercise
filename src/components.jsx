@@ -6,6 +6,17 @@ var trainStore = require('./store');
 var emptyTrain = require('./emptyTrain.json');
 var exampleTrain = require('./exampleTrain.json');
 
+var TrainInfo = React.createClass({
+    render: function () {
+        return (
+            <div className="trainInfo">
+                Train number: {this.props.data.trainNumber}
+                <br/>Departure date: {this.props.data.departureDate}
+            </div>
+        )
+    }
+});
+
 var ScheduleTable = React.createClass({
     getInitialState: function () {
         return { train: exampleTrain }
@@ -13,8 +24,7 @@ var ScheduleTable = React.createClass({
     render: function() {
         return (
             <div className="ScheduleTable">
-                Train number: {this.state.train.trainNumber}
-                <br/>Departure date: {this.state.train.departureDate}
+                <TrainInfo data={this.state.train} />
             </div>
         )
     }
