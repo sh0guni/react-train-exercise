@@ -1,30 +1,10 @@
 var React = require('react');
-var Reflux = require('reflux');
-var request = require('superagent');
-var DepartureDatePicker = require('./departure-datepicker.jsx');
 var moment = require('moment-timezone');
+var DepartureDatePicker = require('./departure-datepicker.jsx');
+var Actions = require('./actions');
+var trainStore = require('./store');
 
 var emptyTrain = { trainNumber: '', departureDate: '', timeTableRows: [{stationShortCode: '', type: '', scheduledTime: null}]};
-
-var Actions = Reflux.createActions({
-    "trainSearch": {asyncResult: true}
-});
-
-Actions.trainSearch.listen(function (train) {
-    var url = 'http://rata.digitraffic.fi/api/v1/schedules/' + train.trainNumber + '?departure_date=' + train.departureDate;
-    request.get(url, function(err, res) {
-        if (err) throw err;
-        var newTrain = res.body.code ? emptyTrain : res.body;
-        Actions.trainSearch.completed(newTrain);
-    });
-});
-
-var trainStore = Reflux.createStore({
-    listenables: Actions,
-    onTrainSearchCompleted: function(train) {
-        this.trigger(train);
-    }
-});
 
 var SearchBox = React.createClass({
     handleSubmit: function(e) {
@@ -130,7 +110,7 @@ var ScheduleTable = React.createClass({
     }
 });
 
-var TrainSearchApp = React.createClass({
+var TrainSearch = React.createClass({
     render: function () {
         return (
             <div className="TrainSearchApp">
@@ -142,6 +122,6 @@ var TrainSearchApp = React.createClass({
 });
 
 React.render(
-    <TrainSearchApp />,
+    <TrainSearch />,
     document.getElementById('app')
 );

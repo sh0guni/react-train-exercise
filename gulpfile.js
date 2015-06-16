@@ -5,7 +5,7 @@ var source = require('vinyl-source-stream');
 var browserSync = require('browser-sync').create();
 
 var paths = {
-    app_js: ['./src/train-example-app.js'],
+    app_js: ['./src/app.js'],
     js: ['./src/*']
 };
 
@@ -13,7 +13,7 @@ gulp.task('js', function() {
     browserify(paths.app_js)
         .transform(reactify)
         .bundle()
-        .pipe(source('train-example-app.js'))
+        .pipe(source('app.js'))
         .pipe(gulp.dest('./public/js'))
         .pipe(browserSync.reload({stream: true, once: true}));
 });
