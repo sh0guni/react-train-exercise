@@ -4,6 +4,7 @@ var DepartureDatePicker = require('./departure-datepicker.jsx');
 var Actions = require('./actions');
 var trainStore = require('./store');
 var emptyTrain = require('./emptyTrain.json');
+var parseTime = require('./time-parser');
 
 var SearchBox = React.createClass({
     handleSubmit: function(e) {
@@ -48,12 +49,11 @@ var TrainInfo = React.createClass({
 
 var TimeTableRow = React.createClass({
     render: function () {
-        var scheduledTime = this.props.data.scheduledTime  ? moment(this.props.data.scheduledTime).tz("Europe/Helsinki").format() : '';
         return (
             <tr>
                 <td>{this.props.data.stationShortCode}</td>
                 <td>{this.props.data.type}</td>
-                <td>{scheduledTime}</td>
+                <td>{parseTime(this.props.data.scheduledTime)}</td>
             </tr>
         )
     }
