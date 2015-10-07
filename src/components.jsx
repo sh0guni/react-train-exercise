@@ -64,10 +64,8 @@ var ScheduleTable = React.createClass({
     render: function() {
         return (
             <div className="ScheduleTable">
-                <div className="ScheduleTable">
-                    <TrainInfo data={this.state.train} />
-                    <TimeTableRows data={this.state.train.timeTableRows} />
-                </div>
+                <TrainInfo data={this.state.train} />
+                <TimeTableRows data={this.state.train.timeTableRows} />
             </div>
         )
     }
