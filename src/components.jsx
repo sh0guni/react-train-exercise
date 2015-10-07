@@ -61,9 +61,9 @@ var TimeTableRow = React.createClass({
 
 var TimeTableRows = React.createClass({
     render: function () {
-        var timeTableRows = this.props.data.map(function (ttr) {
+        var timeTableRows = this.props.data.map(function(ttr, id) {
             return (
-                <TimeTableRow data={ttr} />
+                <TimeTableRow key={id} data={ttr} />
             )
         });
         return (
