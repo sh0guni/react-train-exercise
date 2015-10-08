@@ -13,10 +13,16 @@ gulp.task('js', function() {
     browserify(paths.app_js)
         .transform(reactify)
         .bundle()
+        .on('error', onError)
         .pipe(source('app.js'))
         .pipe(gulp.dest('./public/js'))
         .pipe(browserSync.reload({stream: true, once: true}));
 });
+
+function onError(err) {
+    console.log(err);
+    this.emit('end');
+}
 
 gulp.task('js-watch', ['js']);
 
