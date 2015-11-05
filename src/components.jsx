@@ -8,15 +8,21 @@ var parseTime = require('./time-parser');
 var SearchBox = React.createClass({
     handleSubmit: function(e) {
         e.preventDefault();
-        var trainNumber = React.findDOMNode(this.refs.trainNumber).value.trim();
-        if (!trainNumber || !this.state.departureDate) {
+        var trainNumber = this.state.trainNumber;
+        var departureDate = this.state.departureDate;
+        if (!trainNumber || !departureDate) {
             return;
         }
-        Actions.trainSearch({trainNumber: trainNumber, departureDate: this.state.departureDate});
+        Actions.trainSearch({trainNumber: trainNumber, departureDate: departureDate});
     },
     handleDateChange: function(date) {
         this.setState({
             departureDate: date
+        });
+    },
+    handleTrainNumberChange: function (event) {
+        this.setState({
+            trainNumber: event.target.value
         });
     },
     render: function () {
@@ -24,7 +30,8 @@ var SearchBox = React.createClass({
             <div className="searchBox">
                 <form className="searchForm" onSubmit={this.handleSubmit}>
                     Train number:<br/>
-                    <input type="text" ref="trainNumber" /><br/>
+                    <input type="text" onChange={this.handleTrainNumberChange}/>
+                    <br/>
                     Departure date:<br/>
                     <DepartureDatePicker handleDateChange={this.handleDateChange} />
                     <input type="submit" value="Search" /><br/>
